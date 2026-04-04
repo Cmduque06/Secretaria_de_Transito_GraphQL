@@ -1,0 +1,105 @@
+type Query {
+    propietarios: [Propietario!]!
+    propietario(id: ID!): Propietario
+    vehiculos: [Vehiculo!]!
+    vehiculo(id: ID!): Vehiculo
+    infracciones: [Infraccion!]!
+    infraccion(id: ID!): Infraccion
+    vehiculosConMasInfracciones: [VehiculoInfraccionesReporte!]!
+    totalInfraccionesPorVehiculo: [VehiculoInfraccionesReporte!]!
+    conductoresConMenosPuntos: [ConductorPuntosReporte!]!
+    totalDineroRecaudadoPorMultas: Float!
+}
+
+type Mutation {
+    crearPropietario(input: PropietarioInput!): Propietario!
+    actualizarPropietario(id: ID!, input: PropietarioInput!): Propietario!
+    eliminarPropietario(id: ID!): Boolean!
+    crearVehiculo(input: VehiculoInput!): Vehiculo!
+    actualizarVehiculo(id: ID!, input: VehiculoInput!): Vehiculo!
+    eliminarVehiculo(id: ID!): Boolean!
+    crearInfraccion(input: InfraccionInput!): Infraccion!
+    actualizarInfraccion(id: ID!, input: InfraccionInput!): Infraccion!
+    eliminarInfraccion(id: ID!): Boolean!
+}
+
+type Propietario {
+    id: ID!
+    tipo: String!
+    identificacion: String!
+    nombre: String!
+    direccion: String!
+    licencia: LicenciaConduccion!
+    vehiculos: [Vehiculo!]!
+}
+
+type LicenciaConduccion {
+    id: ID!
+    numero: String!
+    categoria: String!
+    puntosBase: Int!
+    puntosActuales: Int!
+}
+
+type Vehiculo {
+    id: ID!
+    placa: String!
+    marca: String!
+    modelo: String!
+    tipo: String!
+    propietarioId: ID!
+    propietario: Propietario
+    infracciones: [Infraccion!]!
+}
+
+type Infraccion {
+    id: ID!
+    codigo: String!
+    descripcion: String!
+    valor: Float!
+    severidad: String!
+    pagada: Boolean!
+    vehiculoId: ID!
+    vehiculo: Vehiculo
+}
+
+type VehiculoInfraccionesReporte {
+    vehiculoId: ID!
+    placa: String!
+    propietarioNombre: String!
+    totalInfracciones: Int!
+}
+
+type ConductorPuntosReporte {
+    propietarioId: ID!
+    nombre: String!
+    numeroLicencia: String!
+    puntosActuales: Int!
+}
+
+input PropietarioInput {
+    tipo: String!
+    identificacion: String!
+    nombre: String!
+    direccion: String!
+    numeroLicencia: String!
+    categoriaLicencia: String!
+    puntosBase: Int
+}
+
+input VehiculoInput {
+    placa: String!
+    marca: String!
+    modelo: String!
+    tipo: String!
+    propietarioId: ID!
+}
+
+input InfraccionInput {
+    codigo: String!
+    descripcion: String!
+    valor: Float!
+    severidad: String!
+    pagada: Boolean!
+    vehiculoId: ID!
+}
