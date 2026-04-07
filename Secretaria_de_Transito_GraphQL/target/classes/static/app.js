@@ -408,8 +408,10 @@ function renderSelects() {
         (item) => `${item.placa} - ${item.marca} - ${item.propietario?.nombre ?? "Sin propietario"}`);
     fillSelect(elements.infraccionAgente, getFilteredAgentesForSelect(), "identificacion",
         (item) => `${item.nombre} - ${item.identificacion} - ${item.placaInstitucional}`, "Sin agentes disponibles");
-    fillSelect(elements.detallePropietario, state.dashboard.propietarios, "identificacion",
-        (item) => `${item.nombre} (${item.identificacion})`);
+    if (elements.detallePropietario) {
+        fillSelect(elements.detallePropietario, state.dashboard.propietarios, "identificacion",
+            (item) => `${item.nombre} (${item.identificacion})`);
+    }
 }
 
 function syncOrigenFields() {
@@ -439,6 +441,7 @@ function renderAll() {
 }
 
 async function loadNestedDetail(identificacion) {
+    if (!elements.nestedResult) return;
     if (!identificacion) {
         elements.nestedResult.textContent = "No hay propietario disponible para mostrar.";
         return;
@@ -448,6 +451,7 @@ async function loadNestedDetail(identificacion) {
 }
 
 async function refreshNestedDetail() {
+    if (!elements.detallePropietario || !elements.nestedResult) return;
     const currentValue = elements.detallePropietario.value;
     const selected = state.dashboard.propietarios.some((item) => item.identificacion === currentValue)
         ? currentValue
@@ -464,7 +468,9 @@ async function refreshNestedDetail() {
 async function loadDashboard() {
     state.dashboard = normalizeDashboard(await graphQL(queries.dashboard));
     renderAll();
-    await refreshNestedDetail();
+    if (elements.detallePropietario && elements.nestedResult) {
+        await refreshNestedDetail();
+    }
 }
 
 async function mutate(query, variables, successMessage) {
@@ -801,13 +807,15 @@ document.querySelectorAll("[data-refresh]").forEach((button) => {
     });
 });
 
-elements.detallePropietario.addEventListener("change", async (event) => {
-    try {
-        await loadNestedDetail(event.target.value);
-    } catch (error) {
-        showToast(error.message, true);
-    }
-});
+if (elements.detallePropietario) {
+    elements.detallePropietario.addEventListener("change", async (event) => {
+        try {
+            await loadNestedDetail(event.target.value);
+        } catch (error) {
+            showToast(error.message, true);
+        }
+    });
+}
 
 elements.busquedaPropietarioVehiculo.addEventListener("input", renderSelects);
 elements.busquedaVehiculoInfraccion.addEventListener("input", renderSelects);
