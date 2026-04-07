@@ -10,25 +10,65 @@
 <div class="page-shell">
     <header class="hero">
         <div>
+            <p class="eyebrow">Sistema Academico</p>
             <h1>Secretaria de Transito con GraphQL</h1>
-        </div>
+            </div>
         <div class="hero-side">
             <a class="hero-link" href="/graphiql" target="_blank" rel="noreferrer">Abrir GraphiQL</a>
             <div class="hero-stat">
-                <span>Endpoint</span>
-                <strong>/graphql</strong>
+                <span>Puerto</span>
+                <strong>8082</strong>
             </div>
         </div>
     </header>
 
     <section class="metrics" id="metrics"></section>
 
-    <section class="grid-two">
+    <section class="card">
+        <article class="card">
+            <div class="section-head">
+                <div>
+                    <h2>Agentes</h2>
+                    <p>Registro de agentes que pueden asignar infracciones de manera directa.</p>
+                </div>
+                <button type="button" data-refresh="agentes">Actualizar</button>
+            </div>
+            <form class="form-grid" id="agente-form">
+                <p class="form-note full" id="agente-mode">Creando agente nuevo.</p>
+                <input name="identificacion" placeholder="Identificacion del agente" required>
+                <input name="nombre" placeholder="Nombre completo" required>
+                <input name="placaInstitucional" placeholder="Placa institucional" required>
+                <input name="rango" placeholder="Rango" required>
+                <input name="zonaOperativa" placeholder="Zona operativa" required>
+                <select name="activo" required>
+                    <option value="true">ACTIVO</option>
+                    <option value="false">INACTIVO</option>
+                </select>
+                <button type="submit" class="full" id="agente-submit">Crear agente</button>
+                <button type="button" class="ghost full hidden" id="cancelar-agente">Cancelar edicion</button>
+            </form>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Agente</th>
+                        <th>Placa</th>
+                        <th>Rango</th>
+                        <th>Zona</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody id="agentes-body"></tbody>
+                </table>
+            </div>
+        </article>
+    </section>
+    <section class="card">
         <article class="card">
             <div class="section-head">
                 <div>
                     <h2>Propietarios</h2>
-                    <p>Personas o empresas con licencia y vehiculos asociados.</p>
+                    <p>Cada propietario muestra su licencia, puntos actuales y estado de suspension.</p>
                 </div>
                 <button type="button" data-refresh="propietarios">Actualizar</button>
             </div>
@@ -50,7 +90,7 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>Nombre</th>
+                        <th>Propietario</th>
                         <th>Tipo</th>
                         <th>Licencia</th>
                         <th>Puntos</th>
@@ -61,12 +101,14 @@
                 </table>
             </div>
         </article>
+    </section>
 
+    <section class="card">
         <article class="card">
             <div class="section-head">
                 <div>
                     <h2>Vehiculos</h2>
-                    <p>Registro vehicular relacionado con propietarios.</p>
+                    <p>La placa es unica y se asigna a un propietario buscandolo por nombre o identificacion.</p>
                 </div>
                 <button type="button" data-refresh="vehiculos">Actualizar</button>
             </div>
@@ -102,13 +144,12 @@
             </div>
         </article>
     </section>
-
-    <section class="grid-two">
+    <section class="card">
         <article class="card">
             <div class="section-head">
                 <div>
                     <h2>Infracciones</h2>
-                    <p>Las infracciones descuentan puntos a la licencia del propietario.</p>
+                    <p>Cada infraccion puede ser registrada por un agente o por una camara.</p>
                 </div>
                 <button type="button" data-refresh="infracciones">Actualizar</button>
             </div>
@@ -126,8 +167,16 @@
                     <option value="false">PENDIENTE</option>
                     <option value="true">PAGADA</option>
                 </select>
+                <input name="fechaRegistro" placeholder="Fecha YYYY-MM-DD" required>
+                <select name="origenRegistro" id="infraccion-origen" required>
+                    <option value="AGENTE">AGENTE</option>
+                    <option value="CAMARA">CAMARA</option>
+                </select>
                 <input id="busqueda-vehiculo-infraccion" placeholder="Buscar vehiculo por placa o propietario">
                 <select name="vehiculoPlaca" id="infraccion-vehiculo" required></select>
+                <input id="busqueda-agente-infraccion" placeholder="Buscar agente por nombre o identificacion">
+                <select name="agenteIdentificacion" id="infraccion-agente"></select>
+                <input name="camaraCodigo" id="infraccion-camara" placeholder="Codigo de camara">
                 <button type="submit" class="full" id="infraccion-submit">Crear infraccion</button>
                 <button type="button" class="ghost full hidden" id="cancelar-infraccion">Cancelar edicion</button>
             </form>
@@ -137,8 +186,8 @@
                     <tr>
                         <th>Codigo</th>
                         <th>Descripcion</th>
+                        <th>Origen</th>
                         <th>Vehiculo</th>
-                        <th>Valor</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -146,43 +195,32 @@
                 </table>
             </div>
         </article>
-        <article class="card">
-        <div class="section-head">
-            <div>
-                <h2>Reportes</h2>
-                <p>Consultas que resumen el comportamiento del sistema.</p>
-            </div>
-            <button type="button" id="refresh-reportes">Actualizar reportes</button>
-        </div>
-        <input id="busqueda-reportes" placeholder="Buscar en reportes por placa, propietario o identificacion">
-        <div class="grid-two reports">
-            <div>
-                <h3>Vehiculos con mas infracciones</h3>
-                <ul id="reporte-vehiculos" class="report-list"></ul>
-            </div>
-            <div>
-                <h3>Conductores con menos puntos</h3>
-                <ul id="reporte-conductores" class="report-list"></ul>
-            </div>
-        </div>
-        <div class="money-box">
-            <span>Total recaudado por multas pagadas</span>
-            <strong id="total-recaudado">$0</strong>
-        </div>
-        </article>
     </section>
-
     <section class="card">
-        <div class="section-head">
-            <div>
-                <h2>Consulta anidada</h2>
-                <p>Busca un propietario y revisa sus vehiculos con infracciones.</p>
+        <article class="card">
+            <div class="section-head">
+                <div>
+                    <h2>Reportes</h2>
+                    <p>Consulta vehiculos con mas infracciones, conductores con menos puntos y dinero recaudado.</p>
+                </div>
+                <button type="button" id="refresh-reportes">Actualizar reportes</button>
             </div>
-        </div>
-        <div class="form-grid">
-            <select id="detalle-propietario"></select>
-            <pre id="nested-result"></pre>
-        </div>
+            <input id="busqueda-reportes" placeholder="Buscar en reportes por placa, propietario o identificacion">
+            <div class="grid-two reports">
+                <div>
+                    <h3>Vehiculos con mas infracciones</h3>
+                    <ul id="reporte-vehiculos" class="report-list"></ul>
+                </div>
+                <div>
+                    <h3>Conductores con menos puntos</h3>
+                    <ul id="reporte-conductores" class="report-list"></ul>
+                </div>
+            </div>
+            <div class="money-box">
+                <span>Total recaudado por multas pagadas</span>
+                <strong id="total-recaudado">$0</strong>
+            </div>
+        </article>
     </section>
 </div>
 

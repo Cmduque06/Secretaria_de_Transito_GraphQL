@@ -37,7 +37,7 @@ public class PropietarioResolverService {
                 identificacion,
                 input.getNombre(),
                 input.getDireccion(),
-                new LicenciaConduccion(input.getNumeroLicencia(), input.getCategoriaLicencia(), 20, 20)
+                new LicenciaConduccion(input.getNumeroLicencia(), input.getCategoriaLicencia(), 20, 20, false, "Sin suspension")
         );
         datosMemoriaService.getPropietarios().add(propietario);
         return propietario;

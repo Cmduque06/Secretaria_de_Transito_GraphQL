@@ -9,11 +9,16 @@ public class Infraccion {
     private String severidad;
     private boolean pagada;
     private String vehiculoPlaca;
+    private String origenRegistro;
+    private String agenteIdentificacion;
+    private String camaraCodigo;
+    private String fechaRegistro;
 
     public Infraccion() {
     }
 
-    public Infraccion(Long id, String codigo, String descripcion, double valor, String severidad, boolean pagada, String vehiculoPlaca) {
+    public Infraccion(Long id, String codigo, String descripcion, double valor, String severidad, boolean pagada,
+                      String vehiculoPlaca, String origenRegistro, String agenteIdentificacion, String camaraCodigo, String fechaRegistro) {
         this.id = id;
         this.codigo = codigo;
         this.descripcion = descripcion;
@@ -21,6 +26,10 @@ public class Infraccion {
         this.severidad = severidad;
         this.pagada = pagada;
         this.vehiculoPlaca = vehiculoPlaca;
+        this.origenRegistro = origenRegistro;
+        this.agenteIdentificacion = agenteIdentificacion;
+        this.camaraCodigo = camaraCodigo;
+        this.fechaRegistro = fechaRegistro;
     }
 
     public Long getId() {
@@ -77,5 +86,37 @@ public class Infraccion {
 
     public void setVehiculoPlaca(String vehiculoPlaca) {
         this.vehiculoPlaca = vehiculoPlaca;
+    }
+
+    public String getOrigenRegistro() {
+        return origenRegistro;
+    }
+
+    public void setOrigenRegistro(String origenRegistro) {
+        this.origenRegistro = origenRegistro;
+    }
+
+    public String getAgenteIdentificacion() {
+        return agenteIdentificacion;
+    }
+
+    public void setAgenteIdentificacion(String agenteIdentificacion) {
+        this.agenteIdentificacion = agenteIdentificacion;
+    }
+
+    public String getCamaraCodigo() {
+        return camaraCodigo;
+    }
+
+    public void setCamaraCodigo(String camaraCodigo) {
+        this.camaraCodigo = camaraCodigo;
+    }
+
+    public String getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(String fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 }

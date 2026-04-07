@@ -1,9 +1,11 @@
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\controller\TransitoMutationController.java
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\controller\TransitoQueryController.java
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\controller\TransitoSchemaController.java
+C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\graphql\input\AgenteInput.java
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\graphql\input\InfraccionInput.java
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\graphql\input\PropietarioInput.java
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\graphql\input\VehiculoInput.java
+C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\model\Agente.java
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\model\Infraccion.java
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\model\LicenciaConduccion.java
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\model\Propietario.java
@@ -11,6 +13,7 @@ C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_T
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\model\report\VehiculoInfraccionesReporte.java
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\model\Vehiculo.java
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\SecretariaTransitoGraphqlApplication.java
+C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\service\AgenteResolverService.java
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\service\DatosMemoriaService.java
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\service\InfraccionResolverService.java
 C:\Users\Usuario\Documents\GitHub\Secretaria_de_Transito_GraphQL\Secretaria_de_Transito_GraphQL\src\main\java\co\itagui\secretariadetransitographql\service\PropietarioResolverService.java

@@ -1,10 +1,12 @@
 package co.itagui.secretariadetransitographql.controller;
 
+import co.itagui.secretariadetransitographql.model.Agente;
 import co.itagui.secretariadetransitographql.model.Infraccion;
 import co.itagui.secretariadetransitographql.model.Propietario;
 import co.itagui.secretariadetransitographql.model.Vehiculo;
 import co.itagui.secretariadetransitographql.model.report.ConductorPuntosReporte;
 import co.itagui.secretariadetransitographql.model.report.VehiculoInfraccionesReporte;
+import co.itagui.secretariadetransitographql.service.AgenteResolverService;
 import co.itagui.secretariadetransitographql.service.InfraccionResolverService;
 import co.itagui.secretariadetransitographql.service.PropietarioResolverService;
 import co.itagui.secretariadetransitographql.service.ReporteResolverService;
@@ -17,19 +19,32 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class TransitoQueryController {
 
+    private final AgenteResolverService agenteResolverService;
     private final PropietarioResolverService propietarioResolverService;
     private final VehiculoResolverService vehiculoResolverService;
     private final InfraccionResolverService infraccionResolverService;
     private final ReporteResolverService reporteResolverService;
 
-    public TransitoQueryController(PropietarioResolverService propietarioResolverService,
+    public TransitoQueryController(AgenteResolverService agenteResolverService,
+                                   PropietarioResolverService propietarioResolverService,
                                    VehiculoResolverService vehiculoResolverService,
                                    InfraccionResolverService infraccionResolverService,
                                    ReporteResolverService reporteResolverService) {
+        this.agenteResolverService = agenteResolverService;
         this.propietarioResolverService = propietarioResolverService;
         this.vehiculoResolverService = vehiculoResolverService;
         this.infraccionResolverService = infraccionResolverService;
         this.reporteResolverService = reporteResolverService;
+    }
+
+    @QueryMapping
+    public List<Agente> agentes() {
+        return agenteResolverService.listar();
+    }
+
+    @QueryMapping
+    public Agente agente(@Argument String identificacion) {
+        return agenteResolverService.obtener(identificacion);
     }
 
     @QueryMapping

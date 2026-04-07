@@ -6,15 +6,19 @@ public class LicenciaConduccion {
     private String categoria;
     private int puntosBase;
     private int puntosActuales;
+    private boolean suspendida;
+    private String motivoSuspension;
 
     public LicenciaConduccion() {
     }
 
-    public LicenciaConduccion(String numero, String categoria, int puntosBase, int puntosActuales) {
+    public LicenciaConduccion(String numero, String categoria, int puntosBase, int puntosActuales, boolean suspendida, String motivoSuspension) {
         this.numero = numero;
         this.categoria = categoria;
         this.puntosBase = puntosBase;
         this.puntosActuales = puntosActuales;
+        this.suspendida = suspendida;
+        this.motivoSuspension = motivoSuspension;
     }
 
     public String getNumero() {
@@ -47,5 +51,21 @@ public class LicenciaConduccion {
 
     public void setPuntosActuales(int puntosActuales) {
         this.puntosActuales = puntosActuales;
+    }
+
+    public boolean isSuspendida() {
+        return suspendida;
+    }
+
+    public void setSuspendida(boolean suspendida) {
+        this.suspendida = suspendida;
+    }
+
+    public String getMotivoSuspension() {
+        return motivoSuspension;
+    }
+
+    public void setMotivoSuspension(String motivoSuspension) {
+        this.motivoSuspension = motivoSuspension;
     }
 }

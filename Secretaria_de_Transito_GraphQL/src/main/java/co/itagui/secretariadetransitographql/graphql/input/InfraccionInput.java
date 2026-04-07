@@ -8,6 +8,10 @@ public class InfraccionInput {
     private String severidad;
     private Boolean pagada;
     private String vehiculoPlaca;
+    private String origenRegistro;
+    private String agenteIdentificacion;
+    private String camaraCodigo;
+    private String fechaRegistro;
 
     public String getCodigo() {
         return codigo;
@@ -55,5 +59,37 @@ public class InfraccionInput {
 
     public void setVehiculoPlaca(String vehiculoPlaca) {
         this.vehiculoPlaca = vehiculoPlaca;
+    }
+
+    public String getOrigenRegistro() {
+        return origenRegistro;
+    }
+
+    public void setOrigenRegistro(String origenRegistro) {
+        this.origenRegistro = origenRegistro;
+    }
+
+    public String getAgenteIdentificacion() {
+        return agenteIdentificacion;
+    }
+
+    public void setAgenteIdentificacion(String agenteIdentificacion) {
+        this.agenteIdentificacion = agenteIdentificacion;
+    }
+
+    public String getCamaraCodigo() {
+        return camaraCodigo;
+    }
+
+    public void setCamaraCodigo(String camaraCodigo) {
+        this.camaraCodigo = camaraCodigo;
+    }
+
+    public String getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(String fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 }

@@ -1,5 +1,6 @@
 package co.itagui.secretariadetransitographql.controller;
 
+import co.itagui.secretariadetransitographql.model.Agente;
 import co.itagui.secretariadetransitographql.model.Infraccion;
 import co.itagui.secretariadetransitographql.model.Propietario;
 import co.itagui.secretariadetransitographql.model.Vehiculo;
@@ -24,6 +25,15 @@ public class TransitoSchemaController {
                 .toList();
     }
 
+    @SchemaMapping(typeName = "Propietario", field = "historialInfracciones")
+    public List<Infraccion> historialInfracciones(Propietario propietario) {
+        return datosMemoriaService.getVehiculos().stream()
+                .filter(vehiculo -> vehiculo.getPropietarioIdentificacion().equalsIgnoreCase(propietario.getIdentificacion()))
+                .flatMap(vehiculo -> datosMemoriaService.getInfracciones().stream()
+                        .filter(infraccion -> infraccion.getVehiculoPlaca().equalsIgnoreCase(vehiculo.getPlaca())))
+                .toList();
+    }
+
     @SchemaMapping(typeName = "Vehiculo", field = "propietario")
     public Propietario propietario(Vehiculo vehiculo) {
         return datosMemoriaService.getPropietarios().stream()
@@ -43,6 +53,17 @@ public class TransitoSchemaController {
     public Vehiculo vehiculo(Infraccion infraccion) {
         return datosMemoriaService.getVehiculos().stream()
                 .filter(item -> item.getPlaca().equalsIgnoreCase(infraccion.getVehiculoPlaca()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @SchemaMapping(typeName = "Infraccion", field = "agente")
+    public Agente agente(Infraccion infraccion) {
+        if (infraccion.getAgenteIdentificacion() == null || infraccion.getAgenteIdentificacion().isBlank()) {
+            return null;
+        }
+        return datosMemoriaService.getAgentes().stream()
+                .filter(item -> item.getIdentificacion().equalsIgnoreCase(infraccion.getAgenteIdentificacion()))
                 .findFirst()
                 .orElse(null);
     }

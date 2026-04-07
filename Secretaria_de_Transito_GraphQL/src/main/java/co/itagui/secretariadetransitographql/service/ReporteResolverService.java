@@ -34,7 +34,8 @@ public class ReporteResolverService {
                         propietario.getIdentificacion(),
                         propietario.getNombre(),
                         propietario.getLicencia().getNumero(),
-                        propietario.getLicencia().getPuntosActuales()
+                        propietario.getLicencia().getPuntosActuales(),
+                        propietario.getLicencia().isSuspendida()
                 ))
                 .sorted(Comparator.comparingInt(ConductorPuntosReporte::getPuntosActuales))
                 .toList();

@@ -1,4 +1,6 @@
 type Query {
+    agentes: [Agente!]!
+    agente(identificacion: String!): Agente
     propietarios: [Propietario!]!
     propietario(identificacion: String!): Propietario
     vehiculos: [Vehiculo!]!
@@ -12,6 +14,9 @@ type Query {
 }
 
 type Mutation {
+    crearAgente(input: AgenteInput!): Agente!
+    actualizarAgente(identificacion: String!, input: AgenteInput!): Agente!
+    eliminarAgente(identificacion: String!): Boolean!
     crearPropietario(input: PropietarioInput!): Propietario!
     actualizarPropietario(identificacion: String!, input: PropietarioInput!): Propietario!
     eliminarPropietario(identificacion: String!): Boolean!
@@ -23,6 +28,15 @@ type Mutation {
     eliminarInfraccion(id: ID!): Boolean!
 }
 
+type Agente {
+    identificacion: String!
+    nombre: String!
+    placaInstitucional: String!
+    rango: String!
+    zonaOperativa: String!
+    activo: Boolean!
+}
+
 type Propietario {
     tipo: String!
     identificacion: String!
@@ -30,6 +44,7 @@ type Propietario {
     direccion: String!
     licencia: LicenciaConduccion!
     vehiculos: [Vehiculo!]!
+    historialInfracciones: [Infraccion!]!
 }
 
 type LicenciaConduccion {
@@ -37,6 +52,8 @@ type LicenciaConduccion {
     categoria: String!
     puntosBase: Int!
     puntosActuales: Int!
+    suspendida: Boolean!
+    motivoSuspension: String!
 }
 
 type Vehiculo {
@@ -57,7 +74,12 @@ type Infraccion {
     severidad: String!
     pagada: Boolean!
     vehiculoPlaca: String!
+    origenRegistro: String!
+    agenteIdentificacion: String
+    camaraCodigo: String
+    fechaRegistro: String!
     vehiculo: Vehiculo
+    agente: Agente
 }
 
 type VehiculoInfraccionesReporte {
@@ -72,6 +94,16 @@ type ConductorPuntosReporte {
     nombre: String!
     numeroLicencia: String!
     puntosActuales: Int!
+    suspendida: Boolean!
+}
+
+input AgenteInput {
+    identificacion: String!
+    nombre: String!
+    placaInstitucional: String!
+    rango: String!
+    zonaOperativa: String!
+    activo: Boolean!
 }
 
 input PropietarioInput {
@@ -98,4 +130,8 @@ input InfraccionInput {
     severidad: String!
     pagada: Boolean!
     vehiculoPlaca: String!
+    origenRegistro: String!
+    agenteIdentificacion: String
+    camaraCodigo: String
+    fechaRegistro: String!
 }
