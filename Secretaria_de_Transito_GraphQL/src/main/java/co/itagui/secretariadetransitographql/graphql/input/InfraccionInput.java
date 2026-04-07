@@ -7,7 +7,7 @@ public class InfraccionInput {
     private Double valor;
     private String severidad;
     private Boolean pagada;
-    private Long vehiculoId;
+    private String vehiculoPlaca;
 
     public String getCodigo() {
         return codigo;
@@ -49,11 +49,11 @@ public class InfraccionInput {
         this.pagada = pagada;
     }
 
-    public Long getVehiculoId() {
-        return vehiculoId;
+    public String getVehiculoPlaca() {
+        return vehiculoPlaca;
     }
 
-    public void setVehiculoId(Long vehiculoId) {
-        this.vehiculoId = vehiculoId;
+    public void setVehiculoPlaca(String vehiculoPlaca) {
+        this.vehiculoPlaca = vehiculoPlaca;
     }
 }

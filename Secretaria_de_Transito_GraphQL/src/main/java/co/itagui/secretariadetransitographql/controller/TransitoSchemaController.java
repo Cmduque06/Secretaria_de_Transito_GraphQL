@@ -20,14 +20,14 @@ public class TransitoSchemaController {
     @SchemaMapping(typeName = "Propietario", field = "vehiculos")
     public List<Vehiculo> vehiculos(Propietario propietario) {
         return datosMemoriaService.getVehiculos().stream()
-                .filter(vehiculo -> vehiculo.getPropietarioId().equals(propietario.getId()))
+                .filter(vehiculo -> vehiculo.getPropietarioIdentificacion().equalsIgnoreCase(propietario.getIdentificacion()))
                 .toList();
     }
 
     @SchemaMapping(typeName = "Vehiculo", field = "propietario")
     public Propietario propietario(Vehiculo vehiculo) {
         return datosMemoriaService.getPropietarios().stream()
-                .filter(item -> item.getId().equals(vehiculo.getPropietarioId()))
+                .filter(item -> item.getIdentificacion().equalsIgnoreCase(vehiculo.getPropietarioIdentificacion()))
                 .findFirst()
                 .orElse(null);
     }
@@ -35,14 +35,14 @@ public class TransitoSchemaController {
     @SchemaMapping(typeName = "Vehiculo", field = "infracciones")
     public List<Infraccion> infracciones(Vehiculo vehiculo) {
         return datosMemoriaService.getInfracciones().stream()
-                .filter(infraccion -> infraccion.getVehiculoId().equals(vehiculo.getId()))
+                .filter(infraccion -> infraccion.getVehiculoPlaca().equalsIgnoreCase(vehiculo.getPlaca()))
                 .toList();
     }
 
     @SchemaMapping(typeName = "Infraccion", field = "vehiculo")
     public Vehiculo vehiculo(Infraccion infraccion) {
         return datosMemoriaService.getVehiculos().stream()
-                .filter(item -> item.getId().equals(infraccion.getVehiculoId()))
+                .filter(item -> item.getPlaca().equalsIgnoreCase(infraccion.getVehiculoPlaca()))
                 .findFirst()
                 .orElse(null);
     }

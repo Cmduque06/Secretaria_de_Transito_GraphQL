@@ -2,27 +2,19 @@ package co.itagui.secretariadetransitographql.model.report;
 
 public class VehiculoInfraccionesReporte {
 
-    private Long vehiculoId;
     private String placa;
+    private String propietarioIdentificacion;
     private String propietarioNombre;
     private int totalInfracciones;
 
     public VehiculoInfraccionesReporte() {
     }
 
-    public VehiculoInfraccionesReporte(Long vehiculoId, String placa, String propietarioNombre, int totalInfracciones) {
-        this.vehiculoId = vehiculoId;
+    public VehiculoInfraccionesReporte(String placa, String propietarioIdentificacion, String propietarioNombre, int totalInfracciones) {
         this.placa = placa;
+        this.propietarioIdentificacion = propietarioIdentificacion;
         this.propietarioNombre = propietarioNombre;
         this.totalInfracciones = totalInfracciones;
-    }
-
-    public Long getVehiculoId() {
-        return vehiculoId;
-    }
-
-    public void setVehiculoId(Long vehiculoId) {
-        this.vehiculoId = vehiculoId;
     }
 
     public String getPlaca() {
@@ -31,6 +23,14 @@ public class VehiculoInfraccionesReporte {
 
     public void setPlaca(String placa) {
         this.placa = placa;
+    }
+
+    public String getPropietarioIdentificacion() {
+        return propietarioIdentificacion;
+    }
+
+    public void setPropietarioIdentificacion(String propietarioIdentificacion) {
+        this.propietarioIdentificacion = propietarioIdentificacion;
     }
 
     public String getPropietarioNombre() {

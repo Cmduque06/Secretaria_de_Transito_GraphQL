@@ -38,8 +38,8 @@ public class TransitoQueryController {
     }
 
     @QueryMapping
-    public Propietario propietario(@Argument Long id) {
-        return propietarioResolverService.obtener(id);
+    public Propietario propietario(@Argument String identificacion) {
+        return propietarioResolverService.obtener(identificacion);
     }
 
     @QueryMapping
@@ -48,8 +48,8 @@ public class TransitoQueryController {
     }
 
     @QueryMapping
-    public Vehiculo vehiculo(@Argument Long id) {
-        return vehiculoResolverService.obtener(id);
+    public Vehiculo vehiculo(@Argument String placa) {
+        return vehiculoResolverService.obtener(placa);
     }
 
     @QueryMapping

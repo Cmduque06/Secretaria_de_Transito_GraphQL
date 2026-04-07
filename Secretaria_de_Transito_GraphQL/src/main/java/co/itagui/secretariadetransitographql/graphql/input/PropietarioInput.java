@@ -8,7 +8,6 @@ public class PropietarioInput {
     private String direccion;
     private String numeroLicencia;
     private String categoriaLicencia;
-    private Integer puntosBase;
 
     public String getTipo() {
         return tipo;
@@ -58,11 +57,4 @@ public class PropietarioInput {
         this.categoriaLicencia = categoriaLicencia;
     }
 
-    public Integer getPuntosBase() {
-        return puntosBase;
-    }
-
-    public void setPuntosBase(Integer puntosBase) {
-        this.puntosBase = puntosBase;
-    }
 }

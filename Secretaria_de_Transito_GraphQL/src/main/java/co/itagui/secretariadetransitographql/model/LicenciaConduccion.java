@@ -2,7 +2,6 @@ package co.itagui.secretariadetransitographql.model;
 
 public class LicenciaConduccion {
 
-    private Long id;
     private String numero;
     private String categoria;
     private int puntosBase;
@@ -11,20 +10,11 @@ public class LicenciaConduccion {
     public LicenciaConduccion() {
     }
 
-    public LicenciaConduccion(Long id, String numero, String categoria, int puntosBase, int puntosActuales) {
-        this.id = id;
+    public LicenciaConduccion(String numero, String categoria, int puntosBase, int puntosActuales) {
         this.numero = numero;
         this.categoria = categoria;
         this.puntosBase = puntosBase;
         this.puntosActuales = puntosActuales;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNumero() {

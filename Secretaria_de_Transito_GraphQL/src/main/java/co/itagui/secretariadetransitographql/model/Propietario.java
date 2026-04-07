@@ -2,7 +2,6 @@ package co.itagui.secretariadetransitographql.model;
 
 public class Propietario {
 
-    private Long id;
     private String tipo;
     private String identificacion;
     private String nombre;
@@ -12,21 +11,12 @@ public class Propietario {
     public Propietario() {
     }
 
-    public Propietario(Long id, String tipo, String identificacion, String nombre, String direccion, LicenciaConduccion licencia) {
-        this.id = id;
+    public Propietario(String tipo, String identificacion, String nombre, String direccion, LicenciaConduccion licencia) {
         this.tipo = tipo;
         this.identificacion = identificacion;
         this.nombre = nombre;
         this.direccion = direccion;
         this.licencia = licencia;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTipo() {

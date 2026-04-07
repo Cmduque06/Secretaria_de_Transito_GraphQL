@@ -6,7 +6,7 @@ public class VehiculoInput {
     private String marca;
     private String modelo;
     private String tipo;
-    private Long propietarioId;
+    private String propietarioIdentificacion;
 
     public String getPlaca() {
         return placa;
@@ -40,11 +40,11 @@ public class VehiculoInput {
         this.tipo = tipo;
     }
 
-    public Long getPropietarioId() {
-        return propietarioId;
+    public String getPropietarioIdentificacion() {
+        return propietarioIdentificacion;
     }
 
-    public void setPropietarioId(Long propietarioId) {
-        this.propietarioId = propietarioId;
+    public void setPropietarioIdentificacion(String propietarioIdentificacion) {
+        this.propietarioIdentificacion = propietarioIdentificacion;
     }
 }

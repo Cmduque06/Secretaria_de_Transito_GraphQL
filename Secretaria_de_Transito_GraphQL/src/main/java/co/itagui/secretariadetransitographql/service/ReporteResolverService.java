@@ -31,7 +31,7 @@ public class ReporteResolverService {
     public List<ConductorPuntosReporte> conductoresConMenosPuntos() {
         return datosMemoriaService.getPropietarios().stream()
                 .map(propietario -> new ConductorPuntosReporte(
-                        propietario.getId(),
+                        propietario.getIdentificacion(),
                         propietario.getNombre(),
                         propietario.getLicencia().getNumero(),
                         propietario.getLicencia().getPuntosActuales()
@@ -49,17 +49,17 @@ public class ReporteResolverService {
 
     private VehiculoInfraccionesReporte mapVehiculoReporte(Vehiculo vehiculo) {
         int total = (int) datosMemoriaService.getInfracciones().stream()
-                .filter(infraccion -> infraccion.getVehiculoId().equals(vehiculo.getId()))
+                .filter(infraccion -> infraccion.getVehiculoPlaca().equalsIgnoreCase(vehiculo.getPlaca()))
                 .count();
 
         Propietario propietario = datosMemoriaService.getPropietarios().stream()
-                .filter(item -> item.getId().equals(vehiculo.getPropietarioId()))
+                .filter(item -> item.getIdentificacion().equalsIgnoreCase(vehiculo.getPropietarioIdentificacion()))
                 .findFirst()
                 .orElse(null);
 
         return new VehiculoInfraccionesReporte(
-                vehiculo.getId(),
                 vehiculo.getPlaca(),
+                propietario != null ? propietario.getIdentificacion() : "SIN-DATO",
                 propietario != null ? propietario.getNombre() : "Sin propietario",
                 total
         );

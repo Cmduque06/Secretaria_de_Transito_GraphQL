@@ -2,7 +2,7 @@ package co.itagui.secretariadetransitographql.model.report;
 
 public class ConductorPuntosReporte {
 
-    private Long propietarioId;
+    private String identificacion;
     private String nombre;
     private String numeroLicencia;
     private int puntosActuales;
@@ -10,19 +10,19 @@ public class ConductorPuntosReporte {
     public ConductorPuntosReporte() {
     }
 
-    public ConductorPuntosReporte(Long propietarioId, String nombre, String numeroLicencia, int puntosActuales) {
-        this.propietarioId = propietarioId;
+    public ConductorPuntosReporte(String identificacion, String nombre, String numeroLicencia, int puntosActuales) {
+        this.identificacion = identificacion;
         this.nombre = nombre;
         this.numeroLicencia = numeroLicencia;
         this.puntosActuales = puntosActuales;
     }
 
-    public Long getPropietarioId() {
-        return propietarioId;
+    public String getIdentificacion() {
+        return identificacion;
     }
 
-    public void setPropietarioId(Long propietarioId) {
-        this.propietarioId = propietarioId;
+    public void setIdentificacion(String identificacion) {
+        this.identificacion = identificacion;
     }
 
     public String getNombre() {

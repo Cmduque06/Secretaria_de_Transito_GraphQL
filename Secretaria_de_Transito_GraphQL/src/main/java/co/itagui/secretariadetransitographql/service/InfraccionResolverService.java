@@ -31,23 +31,25 @@ public class InfraccionResolverService {
     }
 
     public Infraccion crear(InfraccionInput input) {
-        vehiculoResolverService.obtener(input.getVehiculoId());
+        String vehiculoPlaca = normalizar(input.getVehiculoPlaca()).toUpperCase();
+        vehiculoResolverService.obtener(vehiculoPlaca);
         Infraccion infraccion = new Infraccion(siguienteId(), input.getCodigo(), input.getDescripcion(), input.getValor(),
-                input.getSeveridad(), input.getPagada(), input.getVehiculoId());
+                input.getSeveridad(), input.getPagada(), vehiculoPlaca);
         datosMemoriaService.getInfracciones().add(infraccion);
         datosMemoriaService.recalcularPuntosLicencias();
         return infraccion;
     }
 
     public Infraccion actualizar(Long id, InfraccionInput input) {
-        vehiculoResolverService.obtener(input.getVehiculoId());
+        String vehiculoPlaca = normalizar(input.getVehiculoPlaca()).toUpperCase();
+        vehiculoResolverService.obtener(vehiculoPlaca);
         Infraccion infraccion = obtener(id);
         infraccion.setCodigo(input.getCodigo());
         infraccion.setDescripcion(input.getDescripcion());
         infraccion.setValor(input.getValor());
         infraccion.setSeveridad(input.getSeveridad());
         infraccion.setPagada(input.getPagada());
-        infraccion.setVehiculoId(input.getVehiculoId());
+        infraccion.setVehiculoPlaca(vehiculoPlaca);
         datosMemoriaService.recalcularPuntosLicencias();
         return infraccion;
     }
@@ -63,5 +65,9 @@ public class InfraccionResolverService {
                 .map(Infraccion::getId)
                 .max(Long::compareTo)
                 .orElse(0L) + 1;
+    }
+
+    private String normalizar(String valor) {
+        return valor == null ? "" : valor.trim();
     }
 }

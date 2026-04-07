@@ -8,19 +8,19 @@ public class Infraccion {
     private double valor;
     private String severidad;
     private boolean pagada;
-    private Long vehiculoId;
+    private String vehiculoPlaca;
 
     public Infraccion() {
     }
 
-    public Infraccion(Long id, String codigo, String descripcion, double valor, String severidad, boolean pagada, Long vehiculoId) {
+    public Infraccion(Long id, String codigo, String descripcion, double valor, String severidad, boolean pagada, String vehiculoPlaca) {
         this.id = id;
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.valor = valor;
         this.severidad = severidad;
         this.pagada = pagada;
-        this.vehiculoId = vehiculoId;
+        this.vehiculoPlaca = vehiculoPlaca;
     }
 
     public Long getId() {
@@ -71,11 +71,11 @@ public class Infraccion {
         this.pagada = pagada;
     }
 
-    public Long getVehiculoId() {
-        return vehiculoId;
+    public String getVehiculoPlaca() {
+        return vehiculoPlaca;
     }
 
-    public void setVehiculoId(Long vehiculoId) {
-        this.vehiculoId = vehiculoId;
+    public void setVehiculoPlaca(String vehiculoPlaca) {
+        this.vehiculoPlaca = vehiculoPlaca;
     }
 }

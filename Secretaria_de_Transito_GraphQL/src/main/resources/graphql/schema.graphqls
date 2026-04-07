@@ -1,8 +1,8 @@
 type Query {
     propietarios: [Propietario!]!
-    propietario(id: ID!): Propietario
+    propietario(identificacion: String!): Propietario
     vehiculos: [Vehiculo!]!
-    vehiculo(id: ID!): Vehiculo
+    vehiculo(placa: String!): Vehiculo
     infracciones: [Infraccion!]!
     infraccion(id: ID!): Infraccion
     vehiculosConMasInfracciones: [VehiculoInfraccionesReporte!]!
@@ -13,18 +13,17 @@ type Query {
 
 type Mutation {
     crearPropietario(input: PropietarioInput!): Propietario!
-    actualizarPropietario(id: ID!, input: PropietarioInput!): Propietario!
-    eliminarPropietario(id: ID!): Boolean!
+    actualizarPropietario(identificacion: String!, input: PropietarioInput!): Propietario!
+    eliminarPropietario(identificacion: String!): Boolean!
     crearVehiculo(input: VehiculoInput!): Vehiculo!
-    actualizarVehiculo(id: ID!, input: VehiculoInput!): Vehiculo!
-    eliminarVehiculo(id: ID!): Boolean!
+    actualizarVehiculo(placa: String!, input: VehiculoInput!): Vehiculo!
+    eliminarVehiculo(placa: String!): Boolean!
     crearInfraccion(input: InfraccionInput!): Infraccion!
     actualizarInfraccion(id: ID!, input: InfraccionInput!): Infraccion!
     eliminarInfraccion(id: ID!): Boolean!
 }
 
 type Propietario {
-    id: ID!
     tipo: String!
     identificacion: String!
     nombre: String!
@@ -34,7 +33,6 @@ type Propietario {
 }
 
 type LicenciaConduccion {
-    id: ID!
     numero: String!
     categoria: String!
     puntosBase: Int!
@@ -42,12 +40,11 @@ type LicenciaConduccion {
 }
 
 type Vehiculo {
-    id: ID!
     placa: String!
     marca: String!
     modelo: String!
     tipo: String!
-    propietarioId: ID!
+    propietarioIdentificacion: String!
     propietario: Propietario
     infracciones: [Infraccion!]!
 }
@@ -59,19 +56,19 @@ type Infraccion {
     valor: Float!
     severidad: String!
     pagada: Boolean!
-    vehiculoId: ID!
+    vehiculoPlaca: String!
     vehiculo: Vehiculo
 }
 
 type VehiculoInfraccionesReporte {
-    vehiculoId: ID!
     placa: String!
+    propietarioIdentificacion: String!
     propietarioNombre: String!
     totalInfracciones: Int!
 }
 
 type ConductorPuntosReporte {
-    propietarioId: ID!
+    identificacion: String!
     nombre: String!
     numeroLicencia: String!
     puntosActuales: Int!
@@ -84,7 +81,6 @@ input PropietarioInput {
     direccion: String!
     numeroLicencia: String!
     categoriaLicencia: String!
-    puntosBase: Int
 }
 
 input VehiculoInput {
@@ -92,7 +88,7 @@ input VehiculoInput {
     marca: String!
     modelo: String!
     tipo: String!
-    propietarioId: ID!
+    propietarioIdentificacion: String!
 }
 
 input InfraccionInput {
@@ -101,5 +97,5 @@ input InfraccionInput {
     valor: Float!
     severidad: String!
     pagada: Boolean!
-    vehiculoId: ID!
+    vehiculoPlaca: String!
 }

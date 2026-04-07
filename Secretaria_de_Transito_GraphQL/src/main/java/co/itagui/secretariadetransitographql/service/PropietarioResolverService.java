@@ -18,60 +18,67 @@ public class PropietarioResolverService {
 
     public List<Propietario> listar() {
         return datosMemoriaService.getPropietarios().stream()
-                .sorted(Comparator.comparing(Propietario::getId))
+                .sorted(Comparator.comparing(Propietario::getIdentificacion))
                 .toList();
     }
 
-    public Propietario obtener(Long id) {
+    public Propietario obtener(String identificacion) {
         return datosMemoriaService.getPropietarios().stream()
-                .filter(propietario -> propietario.getId().equals(id))
+                .filter(propietario -> propietario.getIdentificacion().equalsIgnoreCase(normalizar(identificacion)))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Propietario no encontrado"));
     }
 
     public Propietario crear(PropietarioInput input) {
-        Long nuevoId = siguienteId();
-        int puntosBase = input.getPuntosBase() == null ? 20 : input.getPuntosBase();
+        String identificacion = normalizar(input.getIdentificacion());
+        validarIdentificacionUnica(identificacion, null);
         Propietario propietario = new Propietario(
-                nuevoId,
                 input.getTipo(),
-                input.getIdentificacion(),
+                identificacion,
                 input.getNombre(),
                 input.getDireccion(),
-                new LicenciaConduccion(nuevoId, input.getNumeroLicencia(), input.getCategoriaLicencia(), puntosBase, puntosBase)
+                new LicenciaConduccion(input.getNumeroLicencia(), input.getCategoriaLicencia(), 20, 20)
         );
         datosMemoriaService.getPropietarios().add(propietario);
         return propietario;
     }
 
-    public Propietario actualizar(Long id, PropietarioInput input) {
-        Propietario propietario = obtener(id);
+    public Propietario actualizar(String identificacion, PropietarioInput input) {
+        String llave = normalizar(identificacion);
+        Propietario propietario = obtener(llave);
+        if (input.getIdentificacion() != null && !normalizar(input.getIdentificacion()).equalsIgnoreCase(llave)) {
+            throw new IllegalArgumentException("La identificacion es la llave del propietario y no se puede modificar");
+        }
         propietario.setTipo(input.getTipo());
-        propietario.setIdentificacion(input.getIdentificacion());
         propietario.setNombre(input.getNombre());
         propietario.setDireccion(input.getDireccion());
         propietario.getLicencia().setNumero(input.getNumeroLicencia());
         propietario.getLicencia().setCategoria(input.getCategoriaLicencia());
-        if (input.getPuntosBase() != null) {
-            propietario.getLicencia().setPuntosBase(input.getPuntosBase());
-        }
         datosMemoriaService.recalcularPuntosLicencias();
         return propietario;
     }
 
-    public boolean eliminar(Long id) {
+    public boolean eliminar(String identificacion) {
+        String llave = normalizar(identificacion);
         boolean tieneVehiculos = datosMemoriaService.getVehiculos().stream()
-                .anyMatch(vehiculo -> vehiculo.getPropietarioId().equals(id));
+                .anyMatch(vehiculo -> vehiculo.getPropietarioIdentificacion().equalsIgnoreCase(llave));
         if (tieneVehiculos) {
             throw new IllegalArgumentException("No se puede eliminar el propietario porque tiene vehiculos asociados");
         }
-        return datosMemoriaService.getPropietarios().removeIf(propietario -> propietario.getId().equals(id));
+        return datosMemoriaService.getPropietarios().removeIf(propietario -> propietario.getIdentificacion().equalsIgnoreCase(llave));
     }
 
-    private Long siguienteId() {
-        return datosMemoriaService.getPropietarios().stream()
-                .map(Propietario::getId)
-                .max(Long::compareTo)
-                .orElse(0L) + 1;
+    private void validarIdentificacionUnica(String identificacion, String identificacionActual) {
+        boolean existe = datosMemoriaService.getPropietarios().stream()
+                .map(Propietario::getIdentificacion)
+                .filter(valor -> identificacionActual == null || !valor.equalsIgnoreCase(identificacionActual))
+                .anyMatch(valor -> valor.equalsIgnoreCase(identificacion));
+        if (existe) {
+            throw new IllegalArgumentException("Ya existe un propietario con esa identificacion");
+        }
+    }
+
+    private String normalizar(String valor) {
+        return valor == null ? "" : valor.trim();
     }
 }

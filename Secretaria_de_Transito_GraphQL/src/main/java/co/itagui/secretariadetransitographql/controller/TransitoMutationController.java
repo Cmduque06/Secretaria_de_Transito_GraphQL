@@ -34,13 +34,13 @@ public class TransitoMutationController {
     }
 
     @MutationMapping
-    public Propietario actualizarPropietario(@Argument Long id, @Argument PropietarioInput input) {
-        return propietarioResolverService.actualizar(id, input);
+    public Propietario actualizarPropietario(@Argument String identificacion, @Argument PropietarioInput input) {
+        return propietarioResolverService.actualizar(identificacion, input);
     }
 
     @MutationMapping
-    public Boolean eliminarPropietario(@Argument Long id) {
-        return propietarioResolverService.eliminar(id);
+    public Boolean eliminarPropietario(@Argument String identificacion) {
+        return propietarioResolverService.eliminar(identificacion);
     }
 
     @MutationMapping
@@ -49,13 +49,13 @@ public class TransitoMutationController {
     }
 
     @MutationMapping
-    public Vehiculo actualizarVehiculo(@Argument Long id, @Argument VehiculoInput input) {
-        return vehiculoResolverService.actualizar(id, input);
+    public Vehiculo actualizarVehiculo(@Argument String placa, @Argument VehiculoInput input) {
+        return vehiculoResolverService.actualizar(placa, input);
     }
 
     @MutationMapping
-    public Boolean eliminarVehiculo(@Argument Long id) {
-        return vehiculoResolverService.eliminar(id);
+    public Boolean eliminarVehiculo(@Argument String placa) {
+        return vehiculoResolverService.eliminar(placa);
     }
 
     @MutationMapping

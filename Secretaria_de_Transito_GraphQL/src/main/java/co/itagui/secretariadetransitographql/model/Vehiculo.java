@@ -2,31 +2,21 @@ package co.itagui.secretariadetransitographql.model;
 
 public class Vehiculo {
 
-    private Long id;
     private String placa;
     private String marca;
     private String modelo;
     private String tipo;
-    private Long propietarioId;
+    private String propietarioIdentificacion;
 
     public Vehiculo() {
     }
 
-    public Vehiculo(Long id, String placa, String marca, String modelo, String tipo, Long propietarioId) {
-        this.id = id;
+    public Vehiculo(String placa, String marca, String modelo, String tipo, String propietarioIdentificacion) {
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
         this.tipo = tipo;
-        this.propietarioId = propietarioId;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.propietarioIdentificacion = propietarioIdentificacion;
     }
 
     public String getPlaca() {
@@ -61,11 +51,11 @@ public class Vehiculo {
         this.tipo = tipo;
     }
 
-    public Long getPropietarioId() {
-        return propietarioId;
+    public String getPropietarioIdentificacion() {
+        return propietarioIdentificacion;
     }
 
-    public void setPropietarioId(Long propietarioId) {
-        this.propietarioId = propietarioId;
+    public void setPropietarioIdentificacion(String propietarioIdentificacion) {
+        this.propietarioIdentificacion = propietarioIdentificacion;
     }
 }
